@@ -96,30 +96,32 @@
         <label for="alias"><strong> Preferred Short Form for the Link</strong></label>
         <input type="text" placeholder="Enter Preference if any " id="alias">
         <button  onclick="generate()"><strong>Generate Short Link</strong></button>
-      <h4 id = "showAlias"></p>
-      <h4 id = "tip"></h3>
-      <h4 id = "shortlink"></p>
+      <h4 id = "showAlias"></h4>
+      <h4 id = "tip"></h4>
+      <h4 id = "shortlink"></h4>
       </div>
     </form>
     
       <script> 
-        const baseSrtUrl = 'https://basic-url-shortner.herokuapp.com/';
-
+        const baseSrtUrl = 'lnst.herokuapp.com/';
+        
         async function generate() {
-          event.preventDefault();
+            event.preventDefault();
+            const psd = '40a4ad9cb88eca270df169b678fb6d50'
             let form = document.getElementById("inputs");
+          
             let long_url = form.elements[0].value;
             let alias = form.elements[1].value;
+            alias.toLowerCase().replace(/ /g, "");
 
             const data = {
-                "url":long_url
+                "url":long_url,
+                 "pwd" : psd
             }
 
             if(alias){
                 data["alias"] = alias;
             }
-            
-            console.log(data);
              const options = {
                  method:"POST",
                  mode:"cors",
@@ -129,7 +131,7 @@
                  body: JSON.stringify(data)
              };
 
-             fetch(baseSrtUrl+'url',options).then(res=>res.json())
+             fetch('https://'+baseSrtUrl+'url',options).then(res=>res.json())
              .then(response=>{
                  console.log('success = ' ,response);
                  var  newLink = response['db_response']["alias"];
