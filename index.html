@@ -97,7 +97,6 @@
         <input type="text" placeholder="Enter Preference if any " id="alias">
         <button  onclick="generate()"><strong>Generate Short Link</strong></button>
       <h4 id = "showAlias"></h4>
-      <h4 id = "tip"></h4>
       <h4 id = "shortlink"></h4>
       </div>
     </form>
@@ -112,7 +111,7 @@
           
             let long_url = form.elements[0].value;
             let alias = form.elements[1].value;
-            alias.toLowerCase().replace(/ /g, "");
+            alias.toLowerCase().replace(/\s+/g, '');
 
             const data = {
                 "url":long_url,
@@ -140,8 +139,8 @@
                  }else{
                   document.getElementById("showAlias").innerHTML = "Confirmed!!! Now you have this alias \: "+newLink;
                  }
-                document.getElementById("tip").innerHTML = "use it like this in address bar ";
-                document.getElementById("shortlink").innerHTML = baseSrtUrl.concat(newLink);
+                document.getElementById("shortlink").innerHTML = "use it like this in address bar :           " + baseSrtUrl.concat(newLink);
+               document.getElementById("shortlink").href = baseSrtUrl.concat(newLink);
              }).catch(err =>{
                  console.log('Error = ',err);
              });
